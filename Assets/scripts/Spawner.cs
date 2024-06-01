@@ -11,11 +11,12 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     { 
-        StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnEnemies());
     }
 
-    IEnumerator SpawnEnemy()
+    private IEnumerator SpawnEnemies()
     {
+        WaitForSeconds waitForSeconds = new WaitForSeconds(_delay);
         int minIndex = 0;
         int maxIndex = _spawnPoints.Count;
         int minRotation = 0;
@@ -29,7 +30,7 @@ public class Spawner : MonoBehaviour
             int rotationY = Random.Range(minRotation, maxRotation);
             Vector3 rotation = new Vector3(rotationX, rotationY, rotationZ);
 
-            yield return new WaitForSeconds(_delay);
+            yield return waitForSeconds;
             Instantiate(_enemy, _spawnPoints[index].position, Quaternion.Euler(rotation));
         }
     }
